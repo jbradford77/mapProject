@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script
+  src="https://code.jquery.com/jquery-1.7.2.min.js"
+  integrity="sha256-R7aNzoy2gFrVs+pNJ6+SokH04ppcEqJ0yFLkNGoFALQ="
+  crossorigin="anonymous"></script>
+  <script
+  src="https://code.jquery.com/jquery-1.7.2.min.js"
+  integrity="sha256-R7aNzoy2gFrVs+pNJ6+SokH04ppcEqJ0yFLkNGoFALQ="
+  crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="map"></div>
+      <div class="options-box">
+        <h1>Find a Park</h1>
+        <div>
+          <input id="show-parks" type="button" value="Show Parks">
+          <input id="hide-parks" type="button" value="Hide Parks">
+          <hr>
+          <span class="text"> Draw a shape to search for parks!</span>
+          <input id="toggle-drawing"  type="button" value="Open Tools">
+        </div>
+        <hr>
+        <div>
+          <!-- SELECT controls from the viewModel.selectFilters collection. Each SELECT control is data-bound to one of the selectFilter objects. 'nameLabel', 'multiSelect', 'availableValues', 'value' and 'values' are all properties of the selectFilter object.-->
+      		<div data-bind="foreach: selectFilterVM.selectFilters">
+      			<!--<span style="font-weight:bold;vertical-align:top" data-bind="text: nameLabel"></span>-->
+      			<p><select style="vertical-align:top" data-bind="
+      			options: availableValues,
+      			value: value,
+      			selectedOptions: values"></select></p>
+
+      		</div>
+      		<!-- list the currently active filter values -->
+      		<ul data-bind="foreach: selectFilterVM.activeFilters">
+      			<li>
+      				<!--<span style="font-weight:bold" data-bind="text: nameLabel"></span>-->
+      				<span data-bind="text: valueText"></span>&nbsp; <a href="#" data-bind="event:{ click: reset }">clear</a>
+      			</li>
+      		</ul>
+
+          <ul style="list-style-type: none; padding: 0; margin: 0;" data-bind="foreach: selectFilterVM.selectedItems">
+            <li style="padding-bottom: 5px;">
+              <span data-bind="text: Park"></span> - <span data-bind="text: Trail"></span>
+            </li>
+          </ul>
+          <!--<table>
+      			<thead>
+      				<tr>
+      					<th>Park</th>
+      					<th>Trail</th>
+      				</tr>
+      			</thead>
+      			<tbody data-bind="foreach: selectFilterVM.selectedItems">
+      				<tr>
+      					<td data-bind="text: Park"></td>
+      					<td data-bind="text: Trail"></td>
+      				</tr>
+      			</tbody>
+      		</table>-->
+        </div>
+        
+        <hr>
+        <div>
+          <span class="text"> Within </span>
+          <select id="max-duration">
+            <option value="10">10 min</option>
+            <option value="15">15 min</option>
+            <option value="30">30 min</option>
+            <option value="60">1 hour</option>
+          </select>
+          <select id="mode">
+            <option value="DRIVING">drive</option>
+            <option value="WALKING">walk</option>
+            <option value="BICYCLING">bike</option>
+            <option value="TRANSIT">transit ride</option>
+          </select>
+          <span class="text">of</span>
+          <input id="search-within-time-text" type="text" placeholder="Ex: Rodney Square, Wilmington or 414 Federal St, Dover DE">
+          <input id="search-within-time" type="button" value="Go">
+        </div>
+        <hr>
+        <div>
+          <span class="text">What's near parks (camping but you want to go out for pizza?)</span>
+          <input id="places-search" type="text" placeholder="Ex: Pizza in Lewes, DE">
+          <input id="go-places" type="button" value="Go">
+        </div>
+      </div>
+    </div>
+
+
+
+    <script async defer
+        src=
+        "https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyAcE66DvfwUmxKt9auGhTvnC5xpPW9KEwc&v&v&v=3&callback=initMap">
+    </script>
+    <script src="js/lib/knockout-3.2.0.js"></script>
+    <script src="js/koLocationFilterTest.js"></script>
+  </body>
+</html>
